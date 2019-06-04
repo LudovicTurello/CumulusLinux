@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: yes
+  become_method: sudo
+  roles:
+    - tacacs_server
+
+- hosts: spine,leaf,localhost,server
+  become: yes
+  become_method: sudo
+  roles:
+    - tacacs_client
