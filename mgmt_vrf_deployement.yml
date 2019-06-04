@@ -28,5 +28,6 @@
           iface eth0 inet dhcp
               alias MGMT Interface
               vrf mgmt
+              
      - name: Restart Switchd
        service: name=switchd state=restarted    
