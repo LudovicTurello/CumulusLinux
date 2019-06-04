@@ -1,0 +1,20 @@
+- hosts: all
+  remote_user: cumulus
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Install NTP
+      apt: name=ntp update_cache=yes
+
+    - name: Write Timezone File
+      lineinfile: dest=/etc/timezone line="Europe/Amsterdam"
+
+    - name: Apply Timezone
+      shell: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
+
+    - name: Generate and Push NTP Config File
+      template: src=./files/ntp.conf.j2 dest=/etc/ntp.conf
+
+    - name: Restart NTP Service           
+      service: name=ntp state=restarted
