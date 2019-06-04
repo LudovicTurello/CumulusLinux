@@ -1,0 +1,9 @@
+acct_all=1
+
+include=/etc/tacplus_servers
+
+secret=tacacskey
+server=192.168.0.254
+
+vrf=mgmt
+service=shell
