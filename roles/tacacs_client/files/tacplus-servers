@@ -1,0 +1,6 @@
+timeout=10
+
+secret=tacacskey
+server=192.168.0.254
+
+vrf=mgmt
