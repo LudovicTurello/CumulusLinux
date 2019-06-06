@@ -30,4 +30,4 @@
               vrf mgmt
               
     - name: Restart Switchd
-       service: name=switchd state=restarted    
+      service: name=switchd state=restarted    
