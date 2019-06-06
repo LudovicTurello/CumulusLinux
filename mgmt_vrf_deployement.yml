@@ -29,5 +29,6 @@
               alias MGMT Interface
               vrf mgmt
               
-    - name: Restart Switchd
-      service: name=switchd state=restarted    
+  
+              
+
