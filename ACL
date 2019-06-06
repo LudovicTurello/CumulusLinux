@@ -1,0 +1,19 @@
+INGRESS_INTF = swp+
+INGRESS_CHAIN = INPUT,FORWARD
+
+[iptables]
+# protect the switch management
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.21$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.22$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.11$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.12$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.13$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.14$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.31$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.32$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.33$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.34$
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s 192.168.0.254 -d 192.168.0.1 $
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -d 192.168.0.254 -p udp -j DROP
+-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -p udp -j DROP
+
