@@ -1,0 +1,15 @@
+net add interface swp1-4
+net add loopback lo ip address 10.0.0.22/32
+net add interface eth0 ip address dhcp
+net add interface eth0 vrf mgmt
+net add hostname spine02
+net add routing log syslog
+net add routing route-map LOCAL_ROUTES permit 10 match interface lo
+net add bgp autonomous-system 65020
+net add bgp router-id 10.0.0.22
+net add bgp bestpath as-path multipath-relax
+net add bgp neighbor swp1-4 interface remote-as external
+net add bgp ipv4 unicast redistribute connected route-map LOCAL_ROUTES
+net add time ntp server 192.168.0.254 iburst
+net add dns nameserver ipv4 192.168.0.254 vrf mgmt
+net commit
