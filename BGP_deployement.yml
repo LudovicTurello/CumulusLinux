@@ -12,7 +12,6 @@
   roles:
     - interface_configuration
     - routing_configuration
-    - ntp_in_mgmt_vrf
       
 - hosts: server
   user: cumulus
