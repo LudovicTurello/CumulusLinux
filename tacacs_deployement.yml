@@ -5,7 +5,7 @@
   roles:
     - tacacs_server
 
-- hosts: spine,leaf,localhost,server
+- hosts: spine,leaf,localhost
   become: yes
   become_method: sudo
   roles:
