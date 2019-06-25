@@ -1,4 +1,4 @@
-- hosts: leaf,spine,server
+- hosts: leaf,spine
   remote_user: cumulus
   gather_facts: no
   become: yes
