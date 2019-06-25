@@ -5,30 +5,19 @@
   become_method: sudo
   tasks:
 
-    - name: Allow Sourcing of Configuraiton files From /etc/network/interfaces.d Directory
-      lineinfile: dest=/etc/network/interfaces state=present line="source /etc/network/interfaces.d/*"
+    -- name: add mgmt vrf
+  nclu: 
+    atomic: true
+    commands:
+      - add vrf mgmt
+    description: "add mgmt vrf"
+  async: 1
+  poll: 0
+  ignore_errors: true
 
-    - name: Removing Eth0 from /etc/network/interfaces
-      lineinfile: dest=/etc/network/interfaces state=absent regexp={{ item }}
-      with_items: 
-        - "^.*auto eth0"
-        - "^.*iface eth0 inet dhcp"
-        - "^.*alias MGMT Interface"
+- name: Reconnect to switches 
+  local_action: wait_for port=22 host="{{ inventory_hostname }}" search_regex=OpenSSH delay=10
 
-    - name: Add MGMT VRF Config File (/etc/network/interfaces.d/mgmt_vrf.cfg)
-      blockinfile:
-        create: yes
-        dest: /etc/network/interfaces.d/mgmt_vrf.cfg
-        block: |
-          auto mgmt
-          iface mgmt
-              address 127.0.0.1/8
-              vrf-table auto
-          auto eth0
-          iface eth0 inet dhcp
-              alias MGMT Interface
-              vrf mgmt
-              
   
               
 
