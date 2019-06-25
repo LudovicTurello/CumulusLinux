@@ -1,0 +1,82 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*.intf
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+    # The primary network interface
+    address 10.0.0.13/32
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+    vrf mgmt
+
+auto swp1
+iface swp1
+
+auto swp2
+iface swp2
+
+auto swp49
+iface swp49
+    post-up ip link set swp49 promisc on
+
+auto swp50
+iface swp50
+    post-up ip link set swp50 promisc on
+
+auto swp51
+iface swp51
+
+auto swp52
+iface swp52
+
+auto bridge
+iface bridge
+    bridge-ports peerlink server03 server04
+    bridge-vids 20
+    bridge-vlan-aware yes
+
+auto mgmt
+iface mgmt
+    address 127.0.0.1/8
+
+auto peerlink
+iface peerlink
+    bond-slaves swp49 swp50
+
+auto peerlink.4094
+iface peerlink.4094
+    address 169.254.1.1/30
+    clagd-backup-ip 10.0.0.14
+    clagd-peer-ip 169.254.1.2
+    clagd-priority 1000
+    clagd-sys-mac 44:38:39:ff:00:01
+
+auto server03
+iface server03
+    bond-lacp-bypass-allow yes
+    bond-slaves swp1
+    bridge-access 20
+    clag-id 3
+    mstpctl-bpduguard yes
+    mstpctl-portadminedge yes
+
+auto server04
+iface server04
+    bond-lacp-bypass-allow yes
+    bond-slaves swp2
+    bridge-access 20
+    clag-id 4
+    mstpctl-bpduguard yes
+    mstpctl-portadminedge yes
+
+auto vlan20
+iface vlan20
+    address 172.16.2.2/24
+    address-virtual 00:00:5E:00:01:01 172.16.2.1/24
+    vlan-id 20
+    vlan-raw-device bridge
