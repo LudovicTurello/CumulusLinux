@@ -9,7 +9,7 @@
   nclu: 
     atomic: true
     commands:
-      - add vrf mgmt
+      - net add vrf mgmt
     description: "add mgmt vrf"
   async: 1
   poll: 0
